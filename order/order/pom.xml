@@ -10,8 +10,8 @@
 	</parent>
 
 	<groupId>com.nishi</groupId>
-	<artifactId>inventory</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>order</artifactId>
+	<version>0.0.1-NKP-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<properties>
