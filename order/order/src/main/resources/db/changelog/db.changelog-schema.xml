@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- ORDER_DETAILS TABLE -->
+    <changeSet id="create-order-details" author="nishi">
+        <createTable tableName="ORDER_DETAILS">
+
+            <column name="order_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="product_id" type="varchar(255)"/>
+
+            <column name="product_name" type="varchar(255)"/>
+
+            <column name="quantity" type="decimal(10,2)"/>
+
+            <column name="order_status" type="varchar(50)"/>
+
+            <column name="order_date" type="date"/>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

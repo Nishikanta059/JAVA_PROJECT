@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- Loading CSV -->
+    <changeSet id="load-csv" author="nishi">
+        <loadData
+                file="db/data/inventory.csv"
+                tableName="inventory_staging"
+                separator=","
+                encoding="UTF-8"/>
+    </changeSet>
+
+    <!-- Insert Products -->
+    <changeSet id="insert-products" author="nishi">
+        <sql>
+            INSERT INTO product (product_id, product_name)
+            SELECT DISTINCT product_id, product_name
+            FROM inventory_staging;
+        </sql>
+    </changeSet>
+
+    <!-- Insert Electronic Products -->
+    <changeSet id="insert-electronic-products" author="nishi">
+        <sql>
+            INSERT INTO electronic_product (product_id, warranty)
+            SELECT DISTINCT product_id, '1 year'
+            FROM inventory_staging;
+        </sql>
+    </changeSet>
+
+    <!-- Insert Batches -->
+    <changeSet id="insert-batches" author="nishi">
+        <sql>
+            INSERT INTO batches (batch_id, product_id, quantity, expiry_date,reserved_quantity)
+            SELECT batch_id, product_id, quantity, expiry_date,0
+            FROM inventory_staging;
+        </sql>
+    </changeSet>
+
+    <!-- Drop Staging -->
+    <changeSet id="9-drop-staging" author="nishi">
+        <dropTable tableName="inventory_staging"/>
+    </changeSet>
+
+</databaseChangeLog>

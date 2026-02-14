@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <!-- PRODUCT  TABLE-->
+    <changeSet id="create-product" author="nishi">
+        <createTable tableName="product">
+            <column name="product_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- ELECTRONIC_PRODUCT  TABLE-->
+    <changeSet id="create-electronic-product" author="nishi">
+        <createTable tableName="electronic_product">
+            <column name="product_id" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="warranty" type="varchar(50)" defaultValue="1 year"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="electronic_product"
+                baseColumnNames="product_id"
+                referencedTableName="product"
+                referencedColumnNames="product_id"
+                constraintName="fk_electronic_product_product"/>
+    </changeSet>
+
+    <!-- BATCHES  TABLE-->
+    <changeSet id="create-batches" author="nishi">
+        <createTable tableName="batches">
+            <column name="batch_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="decimal(10,2)"/>
+            <column name="reserved_quantity" type="decimal(10,2)"/>
+            <column name="expiry_date" type="date"/>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="batches"
+                columnNames="batch_id, product_id"
+                constraintName="pk_batches"/>
+
+        <addForeignKeyConstraint
+                baseTableName="batches"
+                baseColumnNames="product_id"
+                referencedTableName="product"
+                referencedColumnNames="product_id"
+                constraintName="fk_batches_product"/>
+    </changeSet>
+
+    <!-- STAGING -->
+    <changeSet id="create-staging" author="nishi">
+        <createTable tableName="inventory_staging">
+            <column name="batch_id" type="varchar(255)"/>
+            <column name="product_id" type="varchar(255)"/>
+            <column name="product_name" type="varchar(255)"/>
+            <column name="quantity" type="decimal(10,2)"/>
+            <column name="expiry_date" type="date"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
