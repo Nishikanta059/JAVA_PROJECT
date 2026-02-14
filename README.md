@@ -17,7 +17,7 @@ Make sure the following are installed:
 Check Java version:
 
 ```bash
-java -version
+java --version
 ```
 
 -Sample Output
