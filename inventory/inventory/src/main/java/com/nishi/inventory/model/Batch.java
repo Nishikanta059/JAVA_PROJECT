@@ -23,7 +23,7 @@ public class Batch {
     BigDecimal reservedQuantity;
 
     @ManyToOne
-    @MapsId("productId") // maps productId inside BatchId
+    @MapsId("productId")
     @JoinColumn(name = "product_id", nullable = false)
     Product product;
 

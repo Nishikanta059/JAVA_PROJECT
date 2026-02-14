@@ -24,7 +24,9 @@ public class OrderService {
 
 
 
-    RestTemplate restTemplate=new RestTemplate();
+    @Autowired
+    private RestTemplate restTemplate;
+
 
     @Value("${inventory.update.url}")
     private String inventoryUpdateUrl;

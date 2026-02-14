@@ -11,7 +11,7 @@ import java.util.Map;
 public class ResponseFactory {
 
 
-    public static ResponseEntity buildResponse(String type, Map dataMap) {
+    public  ResponseEntity buildResponse(String type, Map dataMap) {
 
         if (dataMap == null || dataMap.isEmpty()) {
 
@@ -23,11 +23,7 @@ public class ResponseFactory {
             List<String> batchIds =
                     (List<String>) dataMap.getOrDefault("reservedFromBatchIds", List.of());
 
-            if (batchIds.isEmpty()) {
-                return ResponseEntity.ok(dataMap);
-            } else {
-                return ResponseEntity.ok(dataMap);
-            }
+            return ResponseEntity.ok(dataMap);
 
         } else {
 

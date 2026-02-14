@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping()
@@ -20,9 +24,20 @@ import org.springframework.web.bind.annotation.*;
             @Autowired
             OrderService orderService;
 
+    @GetMapping("/health")
+    public ResponseEntity<Map<String, Object>> healthCheck() {
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "UP");
+        response.put("service", "order-service");
+        response.put("timestamp", new Date());
+
+        return ResponseEntity.ok(response);
+    }
+
 
             @PostMapping("/order")
-            ResponseEntity updateProductInventoryDetails(@RequestBody OrderRequest orderRequest){
+            public ResponseEntity updateProductInventoryDetails(@RequestBody OrderRequest orderRequest){
 
              return responseFactory.buildResponse("order",orderService.createOrder(orderRequest));
 
