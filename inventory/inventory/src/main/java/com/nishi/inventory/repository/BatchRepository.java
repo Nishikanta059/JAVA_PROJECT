@@ -15,7 +15,7 @@ public interface BatchRepository extends JpaRepository<Batch, BatchIdCK> {
 
     List<Batch> findAllByProduct_ProductIdOrderByExpiryDateDesc(String productId);
 
-    @Query(" SELECT new com.nishi.inventory.dto.BatchDTO( b.batchIdCK.batchId, b.quantity, b.expiryDate ) FROM Batch b WHERE b.product.productId = :productId")
+    @Query(" SELECT new com.nishi.inventory.dto.BatchDTO( b.batchIdCK.batchId, b.quantity, b.reservedQuantity, b.expiryDate ) FROM Batch b WHERE b.product.productId = :productId")
     List<BatchDTO> findBatchesByProductId(@Param("productId") String productId);
 
 }

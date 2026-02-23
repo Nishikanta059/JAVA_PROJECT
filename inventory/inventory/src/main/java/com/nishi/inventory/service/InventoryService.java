@@ -34,12 +34,22 @@ public class InventoryService {
             List<BatchDTO> batches =
                     batchRepository.findBatchesByProductId(productId);
 
+
+
             Map<String, Object> response = new HashMap<>();
+
+        List<BatchDTO> updatedBatches =
+                batches.stream().map(element -> {
+
+                    element.setQuantity(element.getQuantity().subtract(element.getReservedQuantity()));
+
+                    return element;
+                }).toList();
 
             if(batches.size()>0) {
                 response.put("productId", product.get().getProductId());
                 response.put("productName", product.get().getProductName());
-                response.put("batches", batches);
+                response.put("batches", updatedBatches);
             }
 
 

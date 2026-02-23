@@ -16,6 +16,7 @@ public class BatchDTO {
 
     private String batchId;
     private BigDecimal quantity;
+    private BigDecimal reservedQuantity;
     private Date expiryDate;
 
 }
